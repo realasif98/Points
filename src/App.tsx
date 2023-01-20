@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
+import DeveloperBoard from './components/developerBoard/developerBoard';
+import Performance from './components/performanceBoard/performanceBoard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  developerNames: string[];
+  constructor(props: {}) {
+    super(props)
+    this.developerNames = ["Krishnaveni", "Praveen", "Mohan", "Mathan", "Asif"];
+  }
+  render() {
+    return (
+      <div className="parentContainer">
+        <DeveloperBoard name={this.developerNames} />
+        <Performance />
+      </div>
+    );
+  }
 }
 
 export default App;
