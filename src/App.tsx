@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'react';
 import './App.css';
 import DeveloperBoard from './components/developerBoard/developerBoard';
@@ -13,8 +14,11 @@ class App extends Component {
   render() {
     return (
       <div className="parentContainer">
+         {/* Here data is flow from parent to child with the help of props */}
+        <React.StrictMode>
         <DeveloperBoard name={this.developerNames} />
         <Performance />
+        </React.StrictMode>
       </div>
     );
   }
