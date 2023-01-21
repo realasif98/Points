@@ -1,26 +1,34 @@
 import { Button, MenuItem, TextField } from '@mui/material';
+import React from 'react';
 import { Component } from 'react';
+import { DevPerformanceService } from '../../services/DevPerformance.services';
 import Navbar from '../Navbar/navbar';
 import './developerBoard.css';
 
 
 class DeveloperBoard extends Component<{ name: string[] }, any>{
-    
+    devPObject : DevPerformanceService;
+
     constructor(props: { name: string[] }) {
         super(props);
         this.state = {
             developerNames : props.name
         } 
+        this.devPObject = DevPerformanceService.getInstance();
     }
 
-    opendashboard(name: string){
-        console.log(name);
+    passDeveloperName(name: string){
+        this.devPObject.subject.next(name);
+    }
+
+    getDataFromChild = (name?: string) => {
+        alert(name);
     }
 
     render() {
         return (
             <div className='mainContainerDev'>
-                <Navbar title="DevBoard" isVisible={true}  handleEvent={this.opendashboard} />
+                <Navbar title="DevBoard" isVisible={true}  handleEvent={this.getDataFromChild} />
                 <div className="childContainer">
                     <div className="headingSection">
                         <TextField key="team" select id="outlined-basic" label="Select Team" variant="outlined" defaultValue="GAP ADMIN" sx={{ width: '220px' }} >
@@ -31,7 +39,7 @@ class DeveloperBoard extends Component<{ name: string[] }, any>{
                     </div>
                     <div className='contentSection'>
                         {this.state.developerNames.map((val: string) => (
-                            <Button key={val} onClick={() => this.opendashboard(val)} variant="contained" sx={{ width: '220px', fontSize: '16px', fontWeight: '600', fontFamily: 'Segoe UI' }}>
+                            <Button key={val} onClick={() => this.passDeveloperName(val)} variant="contained" sx={{ width: '220px', fontSize: '16px', fontWeight: '600', fontFamily: 'Segoe UI' }}>
                                 {val}
                             </Button>
                         ))}

@@ -1,8 +1,7 @@
 import { Button } from '@mui/material';
-import { isVisible } from '@testing-library/user-event/dist/utils';
 import { Component } from 'react'
+import { DevPerformanceService } from '../../services/DevPerformance.services';
 import './navbar.css'
-
 
 interface NavBarProps {
     title: string,
@@ -10,8 +9,8 @@ interface NavBarProps {
     handleEvent: any
 }
 
-
-class Navbar extends Component<NavBarProps, any>{
+class Navbar extends Component<NavBarProps, any>{  
+    devPObject : DevPerformanceService;
 
     constructor(props: NavBarProps) {
         super(props);
@@ -19,25 +18,30 @@ class Navbar extends Component<NavBarProps, any>{
             navTitle: props.title,
             isVisible: props.isVisible
         }
+        this.devPObject = DevPerformanceService.getInstance();
+    }
+     
+    changeNavTitle(newName: string) {
+        this.setState({ navTitle: newName, isVisible: false });
     }
 
-    changeNavTitle(newName: string) {
-        // Callback function will call the parent class function from here
-        // Here data flow from child to parent with the help of callback function
-        this.setState({ navTitle: newName }) 
-        // this.props.handleEvent(newName);
+    sendDatatoParent = () => {
+        this.props.handleEvent("Hi from child!");
     }
 
     renderButton(isVisible: boolean) {
+        let element : any = null;
         if (isVisible) {
-            return <Button onClick={() => this.changeNavTitle("Developer")}
+            element = <Button onClick={() => this.sendDatatoParent()}
                 sx={{
                     color: 'white', width: '220px', fontSize: '16px', fontWeight: '600',
                     fontFamily: 'Segoe UI'
-                }}> Change Title </Button>
+                }}> Get Data </Button>
         }
-        return null;
+        return element;
     }
+
+     
 
     render() {
         return (
