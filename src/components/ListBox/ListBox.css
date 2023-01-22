@@ -1,0 +1,11 @@
+.listItem{
+    width: 90%;
+    padding: 6px 10px;
+    border: 1 px solid black;
+    border-radius: 6px 0 6px 0;
+    background-color: #4e9ae6;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
